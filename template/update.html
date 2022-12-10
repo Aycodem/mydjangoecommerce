@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create post</title>
+</head>
+<body>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="name" name="name" value='{{show_edit.name}}'>
+    <input type="text" placeholder="description" name="description" value= '{{show_edit.description}}'>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

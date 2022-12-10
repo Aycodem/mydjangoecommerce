@@ -1,0 +1,14 @@
+{% for post in posts %}
+
+
+<h4>
+    {{post.id}}<br>
+    {{post.name}}<br>
+    {{post.description}}
+</h4>
+<a href="{{post.id}}/update/"><input type="submit" value="Edit"></a>
+<a href="{{post.id}}/delete/"><input type="submit" value="Delete"></a>
+{% endfor %}
+
+<span>hello ,{{request.user}}</span>
+<a href="{% url 'logout' %}"><input type="submit" value="logout"></a>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django</title>
+</head>
+<style>
+    body{
+                margin-top: 40px;
+                background:azure;
+                background-size:cover;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-position: center;
+}
+h3{
+                color:#55b4b0;
+                font-weight:bolder;
+                text-align: center;
+                text-transform: uppercase;
+
+}
+.container{
+                max-width: 500px;
+                width: 90%;
+                min-width: 300px;
+                margin: auto;
+                border-radius: 10px;
+                background: linear-gradient(60deg,coral,#55b4b0);
+                height: auto;
+                padding: 20px;
+                box-shadow: 30px 30px 30px 0 coral;
+                }
+.container>div>input{
+                padding: 8px;
+                height: 25px;
+                border:3px solid #55b4b0 ;
+                background:aliceblue;
+                letter-spacing:2px;
+                display:inline-block;
+}
+.container>div>input:focus{
+                background: #ddd;
+                outline:none;
+}
+.signup{
+                position:relative;
+                top:15px;
+                width: 80%;
+                background-color: lightgreen;
+                border-radius: 2px;
+                border: 10px;
+                color:aliceblue;
+                padding: 10px;
+                cursor:pointer;
+                opacity:0.8;
+}
+
+
+.signup:hover{
+                opacity:1;
+
+}
+
+.container>div>input{
+                width: 75%;
+}
+.message{
+    color: white;
+  }
+
+</style>
+<body>
+
+    <h3>Django new acount</h3><br>
+
+    <form action="" method="POST" >
+        {% csrf_token %}
+    <div class="container">
+        <div><input class="text" placeholder="Username" name="username" required></div>
+        <div><input class="text" placeholder="Email " name="email" id="email" required></div>
+        <div><input class="text" placeholder="first name"name="firstname"  required></div>
+        <div><input class="text" placeholder="last name"name="lastname"  required></div>
+        <div><input type="password" placeholder="New password" name="password" id="pw" required></div>
+        {% for message in messages %}
+        <h4 class="message">*{{message}}</h4>
+       {% endfor %}
+        <div><input type="password" placeholder="Confirm password"name="password2" id="cpw" required></div>
+        
+        <div><button class="signup" type="submit">Sign Up</button></div>
+    </form>
+            <h4 style="color:seagreen;margin-top:50px">Already registered an account?<a href="login">Login</a></h4>
+        
+        </div>
+</body> 
+</html
