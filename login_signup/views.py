@@ -3,14 +3,11 @@ from django.http import HttpResponse
 from  django.contrib.auth.models import User ,auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from .decorator import unauthenticated_user
 
 # Create your views here.
-
+@unauthenticated_user
 def login(request):
-    if request.user.is_authenticated :
-        return redirect('crud/view')
-    else:
         if request.method == "POST":
             username=request.POST["username"]
             password =request.POST["password"]
@@ -25,11 +22,8 @@ def login(request):
 
         return render(request,"login.html")
 
-
+@unauthenticated_user
 def register(request):
-    if request.user.is_authenticated :
-        return redirect('crud/view')
-    else:
         if request.method == "POST":
             username=request.POST["username"]
             email=request.POST["email"]

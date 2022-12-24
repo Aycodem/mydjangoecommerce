@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import generics,mixins
+from rest_framework import generics,mixins,authentication
 from .models import Products
 # from django.shortcuts import get_object_or_404
 
@@ -22,23 +22,25 @@ def Viewproduct(request,pk):
     return Response(serializer.data)
 
 
-@api_view(["POST"])
+@api_view(['POST'])
 def CreateProduct(request):
     serializer=ProductSerializer(data=request.data)
-
     if serializer.is_valid():
         serializer.save()
+    return redirect('/api/products/')
 
-    return Response(serializer.data)
 
-
-@api_view(["POST"])
+@api_view(['POST'])
 def UpdateProduct(request,pk):
-    product=Products.objects.get(id=pk)
-    serializer=ProductSerializer(instance=product,data=request.data)
+    products=Products.objects.get(id=pk)
+    serializer=ProductSerializer(instance=products,data=request.data)
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
+    print(serializer.data)
+    return redirect('/api/products/')
+   
+        
+    # return Response('item updated')
 
 
 
@@ -49,3 +51,14 @@ def DeleteProduct(request,pk):
     product=Products.objects.get(id=pk)
     product.delete()
     return Response('items delete sucessfully')
+
+
+
+class Viewallclass(generics.ListCreateAPIView):
+    queryset=Products.objects.all()
+    serializer_class=ProductSerializer
+    authentication_classes= [authentication.SessionAuthentication ,authentication.TokenAuthentication]
+
+
+
+View_allclass=Viewallclass.as_view()

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k@_9jy3lru19)$s^f&nc!(^%_hf@mt5=e6to1w2y)0yj2e%&rh'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -38,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'e_commerce_api.apps.ECommerceApiConfig',
     'login_signup',
-    'CRUD'
+    'CRUD',
+    'store'
 ]
 import pymysql
 
@@ -83,11 +86,11 @@ WSGI_APPLICATION = 'e_commerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'e_commerce',
-        'USER':'root',
-        'PASSWORD':'ayomide10',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'NAME': config('NAME'),
+        'USER':config('USER'),
+        'PASSWORD':config('PASSWORD'),
+        'HOST':config('HOST'),
+        'PORT':config('PORT'),
     }
 }
 
@@ -129,6 +132,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR/ 'media'
 
@@ -136,3 +140,27 @@ MEDIA_ROOT = BASE_DIR/ 'media'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {
+
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10
+
+
+
+}
+
+
+
+
+
+
+#SMTP Configuration
+
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT =587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER= config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
